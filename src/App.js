@@ -1,12 +1,19 @@
 import Buttons from "./components/Buttons";
 import Table from "./components/Table";
 import Banner from "./components/Banner";
+import satData from "./components/satData";
 import { useState } from "react";
-import satData from "./components/satData"
+
 
 function App() {
   const [sat, setSat] = useState(satData);
   const displaySats = [...new Set(satData.map((data) => data.orbitType))];
+  const filterByType = (currentType) => {
+    const displaySats = satData.filter((newSatDisplay) => {
+      return newSatDisplay.orbitType === currentType;
+    });
+    setSat(displaySats);
+  };
   return (
     <div>
       <Banner />
@@ -18,13 +25,10 @@ function App() {
       <Table sat={sat} />
     </div>
   );
-}
 
-const filterByType = (currentType) => {
-    const displaySats = satData.filter((newSatDisplay) => {
-    return newSatDisplay.orbitType === currentType;
- });
- setSat(displaySats);
+//funtions have to come first in react, before return
+
+
 };
 
 export default App;
